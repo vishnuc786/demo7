@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a576db79-3953-4bf5-b485-51bf53ac91ed" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="demo7Flow" doc:id="18701a44-bfc3-4bb4-9b18-bbafc901c1ca" >
+		<http:listener doc:name="Listener" doc:id="49401f1e-494d-405f-a739-bcd16b8d8f1a" config-ref="HTTP_Listener_config" path="/mypath"/>
+		<choice doc:name="Choice" doc:id="30127982-d8ff-469e-ba71-b3eb85d799c9" >
+			<when expression='#[payload."country"== "india"]'>
+				<set-payload value='#["india is my country"]' doc:name="Set Payload" doc:id="687ffac3-5a65-4940-a77e-3c2888b8ca0f" />
+			</when>
+			<when expression='#[payload."country" == "america"]'>
+				<set-payload value='#["america is trump mama country"]' doc:name="Set Payload" doc:id="1106c23c-e7b4-4ae4-a5d6-6a78273af955" />
+			</when>
+			<when expression='#[payload."country" == "russia"]'>
+				<set-payload value='#["russia is putin mama country"]' doc:name="Set Payload" doc:id="388d3bb9-0025-4873-beb4-30d6c6427e1f" />
+			</when>
+			<otherwise >
+				<set-payload value='#["pakistan ka maka bhosda"]' doc:name="Set Payload" doc:id="dc6188b5-9239-4c0a-a229-f3711531e282" />
+			</otherwise>
+		</choice>
+	</flow>
+</mule>
